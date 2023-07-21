@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Deny and Conquer Client</title>
+</head>
+<body>
+  <h1>Deny and Conquer</h1>
+  <canvas id="game-board" width="400" height="400"></canvas>
+  <div id="game-updates"></div> <!-- New div to display game updates -->
+
+  <script>
+    const ws = new WebSocket('ws://localhost:3000');
+
+    ws.onopen = () => {
+      appendMessage('Connected to server!');
+    };
+
+    ws.onmessage = (event) => {
+      const data = JSON.parse(event.data);
+      if (data.type === 'id') {
+        const clientId = data.id;
+        appendMessage('Received player ID: ' + clientId);
+      } else {
+        // Handle game updates received from the server here
+        appendMessage('Received game update: ' + JSON.stringify(data));
+      }
+    };
+
+    ws.onerror = (error) => {
+      appendMessage('WebSocket error: ' + error);
+    };
+
+    function appendMessage(message) {
+      const gameUpdatesDiv = document.getElementById('game-updates');
+      const p = document.createElement('p');
+      p.textContent = message;
+      gameUpdatesDiv.appendChild(p);
+    }
+
+    // Add event listeners and handle user interactions (e.g., mouse events) here
+    // For example, capturing clicks and drawing on the canvas to represent gameplay
+
+    // Function to send player actions to the server
+    function sendAction(action) {
+      ws.send(JSON.stringify(action));
+    }
+  </script>
+</body>
+</html>
