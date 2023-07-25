@@ -1,4 +1,5 @@
 const WebSocket = require('ws');
+const game = require('./game');
 
 const PORT = 3000;
 let clientCount = 0;
