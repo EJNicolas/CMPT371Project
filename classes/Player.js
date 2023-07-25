@@ -1,4 +1,4 @@
-const colors = ['red', 'lavender', 'green', 'rose', 'torquise', 'yellow']
+const colors = ['red', 'lavender', 'green', 'plum', 'skyblue', 'yellow']
 
 class Player {
     constructor(playerNum , radius, color) {
